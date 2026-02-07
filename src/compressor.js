@@ -1,6 +1,6 @@
 const {exec, execSync} = require("child_process");
 const path = require("path");
-const {ipcRenderer, shell} = require("electron");
+const {ipcRenderer, webUtils} = require("electron");
 const os = require("os");
 const si = require("systeminformation");
 const {existsSync} = require("fs");
@@ -205,7 +205,8 @@ function cancelCompression() {
 function generateOutputPath(file, settings) {
 	console.log({settings});
 	const output_extension = settings.extension;
-	const parsed_file = path.parse(file.path);
+	const filePath = webUtils.getPathForFile(file);
+	const parsed_file = path.parse(filePath);
 
 	let outputDir = settings.outputPath || parsed_file.dir;
 
@@ -249,8 +250,9 @@ async function compressVideo(file, settings, itemId, outputPath) {
 			bitrate: "",
 		};
 
+		const filePath = webUtils.getPathForFile(file);
 		createProgressItem(
-			path.basename(file.path),
+			path.basename(filePath),
 			"progress",
 			`Starting...`,
 			itemId
@@ -297,7 +299,7 @@ async function compressVideo(file, settings, itemId, outputPath) {
  * @param {string} outputPath
  */
 function buildFFmpegCommand(file, settings, outputPath) {
-	const inputPath = file.path;
+	const inputPath = webUtils.getPathForFile(file);
 
 	console.log("Output path: " + outputPath);
 
