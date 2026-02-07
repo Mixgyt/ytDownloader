@@ -18,7 +18,7 @@
 	"end": "Término",
 	"timeRangeStartEmptyHint": "Si se mantiene vacío, comenzará desde el principio",
 	"timeRangeEndEmptyHint": "Si se mantiene vacío, se descargará hasta el final",
-	"homepage": "Página web",
+	"homepage": "Inicio",
 	"aboutAppDescription": "Es una aplicación gratuita y de código abierto construida sobre Node.js y Electron. yt-dlp se ha utilizado para descargar",
 	"sourceCodeAvailable": "El código fuente está disponible ",
 	"here": "aquí",
