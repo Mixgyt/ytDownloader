@@ -161,5 +161,15 @@
 	"learnMore": "Learn more",
 	"updateError": "An error occurred during the update process",
 	"unableToAccessDir": "The program cannot access that folder",
-	"downloadingUpdate": "Downloading update"
+	"downloadingUpdate": "Downloading update",
+	"searchInfo": "অনুসন্ধান",
+	"searchPlaceholder": "ভিডিও অনুসন্ধান করুন...",
+	"searchNameToolTip": "নাম দিয়ে অনুসন্ধান করুন",
+	"searchResults": "অনুসন্ধান ফলাফল",
+	"backToSearch": "অনুসন্ধানে ফিরে যান",
+	"noResultsFound": "কোন ফলাফল পাওয়া যায়নি",
+	"resultsFound": "ফলাফল পাওয়া গেছে",
+	"enterSearchTerm": "অনুগ্রহ করে একটি অনুসন্ধান শব্দ লিখুন",
+	"live": "লাইভ",
+	"noTitle": "কোন শিরোনাম নেই"
 }

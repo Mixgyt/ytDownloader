@@ -161,5 +161,15 @@
 	"learnMore": "További információ",
 	"updateError": "Hiba történt a frissítési folyamat során",
 	"unableToAccessDir": "The program cannot access that folder",
-	"downloadingUpdate": "Frissítés letöltése"
+	"downloadingUpdate": "Frissítés letöltése",
+	"searchInfo": "Keresés",
+	"searchPlaceholder": "Videók keresése...",
+	"searchNameToolTip": "Keresés név szerint",
+	"searchResults": "Keresési eredmények",
+	"backToSearch": "Vissza a kereséshez",
+	"noResultsFound": "Nem található eredmény",
+	"resultsFound": "találat",
+	"enterSearchTerm": "Kérjük, adjon meg egy keresőszót",
+	"live": "Élő",
+	"noTitle": "Nincs cím"
 }

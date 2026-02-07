@@ -161,6 +161,15 @@
 	"learnMore": "Learn more",
 	"updateError": "An error occurred during the update process",
 	"unableToAccessDir": "The program cannot access that folder",
-	"downloadingUpdate": "Downloading update"
-
+	"downloadingUpdate": "Downloading update",
+	"searchInfo": "Search",
+	"searchPlaceholder": "Search videos...",
+	"searchNameToolTip": "Search by name",
+	"searchResults": "Search Results",
+	"backToSearch": "Back to search",
+	"noResultsFound": "No results found",
+	"resultsFound": "results found",
+	"enterSearchTerm": "Please enter a search term",
+	"live": "Live",
+	"noTitle": "No title"
 }

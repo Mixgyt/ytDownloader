@@ -161,5 +161,15 @@
 	"learnMore": "Saiba mais",
 	"updateError": "Ocorreu um erro durante o processo de atualização",
 	"unableToAccessDir": "O programa não pode acessar essa pasta",
-	"downloadingUpdate": "Baixando atualização"
+	"downloadingUpdate": "Baixando atualização",
+	"searchInfo": "Pesquisar",
+	"searchPlaceholder": "Pesquisar vídeos...",
+	"searchNameToolTip": "Buscar por nome",
+	"searchResults": "Resultados da pesquisa",
+	"backToSearch": "Voltar à pesquisa",
+	"noResultsFound": "Nenhum resultado encontrado",
+	"resultsFound": "resultados encontrados",
+	"enterSearchTerm": "Por favor, insira um termo de pesquisa",
+	"live": "Ao vivo",
+	"noTitle": "Sem título"
 }

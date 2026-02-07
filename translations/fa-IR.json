@@ -161,5 +161,15 @@
 	"learnMore": "Learn more",
 	"updateError": "An error occurred during the update process",
 	"unableToAccessDir": "The program cannot access that folder",
-	"downloadingUpdate": "Downloading update"
+	"downloadingUpdate": "Downloading update",
+	"searchInfo": "جستجو",
+	"searchPlaceholder": "جستجوی ویدیوها...",
+	"searchNameToolTip": "جستجو بر اساس نام",
+	"searchResults": "نتایج جستجو",
+	"backToSearch": "بازگشت به جستجو",
+	"noResultsFound": "نتیجه‌ای یافت نشد",
+	"resultsFound": "نتیجه یافت شد",
+	"enterSearchTerm": "لطفا عبارت جستجو را وارد کنید",
+	"live": "زنده",
+	"noTitle": "بدون عنوان"
 }

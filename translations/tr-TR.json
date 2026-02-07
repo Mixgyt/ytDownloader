@@ -161,5 +161,15 @@
 	"learnMore": "Learn more",
 	"updateError": "An error occurred during the update process",
 	"unableToAccessDir": "The program cannot access that folder",
-	"downloadingUpdate": "Downloading update"
+	"downloadingUpdate": "Downloading update",
+	"searchInfo": "Ara",
+	"searchPlaceholder": "Video ara...",
+	"searchNameToolTip": "Ada göre ara",
+	"searchResults": "Arama Sonuçları",
+	"backToSearch": "Aramaya dön",
+	"noResultsFound": "Sonuç bulunamadı",
+	"resultsFound": "sonuç bulundu",
+	"enterSearchTerm": "Lütfen bir arama terimi girin",
+	"live": "Canlı",
+	"noTitle": "Başlık yok"
 }

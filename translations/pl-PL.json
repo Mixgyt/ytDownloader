@@ -161,5 +161,15 @@
 	"learnMore": "Dowiedz się więcej",
 	"updateError": "Wystąpił błąd podczas procesu aktualizacji",
 	"unableToAccessDir": "Program nie może uzyskać dostępu do tego folderu",
-	"downloadingUpdate": "Pobieranie aktualizacji"
+	"downloadingUpdate": "Pobieranie aktualizacji",
+	"searchInfo": "Szukaj",
+	"searchPlaceholder": "Wyszukaj filmy...",
+	"searchNameToolTip": "Szukaj według nazwy",
+	"searchResults": "Wyniki wyszukiwania",
+	"backToSearch": "Powróć do wyszukiwania",
+	"noResultsFound": "Nie znaleziono wyników",
+	"resultsFound": "wyników znaleziono",
+	"enterSearchTerm": "Wpisz hasło do wyszukiwania",
+	"live": "Na żywo",
+	"noTitle": "Brak tytułu"
 }

@@ -161,5 +161,15 @@
 	"learnMore": "Lue lisää",
 	"updateError": "Päivitysprosessin aikana tapahtui virhe",
 	"unableToAccessDir": "Ohjelma ei pääse käsiksi kyseiseen kansioon",
-	"downloadingUpdate": "Ladataan päivitystä"
+	"downloadingUpdate": "Ladataan päivitystä",
+	"searchInfo": "Haku",
+	"searchPlaceholder": "Etsi videoita...",
+	"searchNameToolTip": "Hae nimen perusteella",
+	"searchResults": "Hakutulokset",
+	"backToSearch": "Takaisin hakuun",
+	"noResultsFound": "Tuloksia ei löytynyt",
+	"resultsFound": "tulosta löytyi",
+	"enterSearchTerm": "Ole hyvä ja syötä hakutermi",
+	"live": "Live",
+	"noTitle": "Ei otsikkoa"
 }

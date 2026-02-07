@@ -161,5 +161,15 @@
 	"learnMore": "Докладніше",
 	"updateError": "Сталася помилка під час процесу оновлення",
 	"unableToAccessDir": "Програма не має доступу до папки",
-	"downloadingUpdate": "Завантаження оновлення"
+	"downloadingUpdate": "Завантаження оновлення",
+	"searchInfo": "Пошук",
+	"searchPlaceholder": "Пошук відео...",
+	"searchNameToolTip": "Пошук за назвою",
+	"searchResults": "Результати пошуку",
+	"backToSearch": "Повернутися до пошуку",
+	"noResultsFound": "Результатів не знайдено",
+	"resultsFound": "результатів знайдено",
+	"enterSearchTerm": "Будь ласка, введіть пошуковий запит",
+	"live": "Прямий ефір",
+	"noTitle": "Без назви"
 }

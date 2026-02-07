@@ -161,5 +161,15 @@
 	"learnMore": "Learn more",
 	"updateError": "An error occurred during the update process",
 	"unableToAccessDir": "The program cannot access that folder",
-	"downloadingUpdate": "Downloading update"
+	"downloadingUpdate": "Downloading update",
+	"searchInfo": "Tìm kiếm",
+	"searchPlaceholder": "Tìm kiếm video...",
+	"searchNameToolTip": "Tìm kiếm theo tên",
+	"searchResults": "Kết quả tìm kiếm",
+	"backToSearch": "Quay lại tìm kiếm",
+	"noResultsFound": "Không tìm thấy kết quả",
+	"resultsFound": "kết quả được tìm thấy",
+	"enterSearchTerm": "Vui lòng nhập từ khóa tìm kiếm",
+	"live": "Trực tiếp",
+	"noTitle": "Không có tiêu đề"
 }

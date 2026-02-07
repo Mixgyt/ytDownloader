@@ -161,5 +161,15 @@
 	"learnMore": "了解更多",
 	"updateError": "更新过程中发生错误",
 	"unableToAccessDir": "该程序无法访问该文件夹",
-	"downloadingUpdate": "下载更新"
+	"downloadingUpdate": "下载更新",
+	"searchInfo": "搜索",
+	"searchPlaceholder": "搜索视频...",
+	"searchNameToolTip": "按名称搜索",
+	"searchResults": "搜索结果",
+	"backToSearch": "返回搜索",
+	"noResultsFound": "未找到结果",
+	"resultsFound": "个结果",
+	"enterSearchTerm": "请输入搜索词",
+	"live": "直播",
+	"noTitle": "无标题"
 }

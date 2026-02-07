@@ -161,5 +161,15 @@
 	"learnMore": "और जानें",
 	"updateError": "An error occurred during the update process",
 	"unableToAccessDir": "The program cannot access that folder",
-	"downloadingUpdate": "Downloading update"
+	"downloadingUpdate": "Downloading update",
+	"searchInfo": "खोजें",
+	"searchPlaceholder": "वीडियो खोजें...",
+	"searchNameToolTip": "नाम से खोजें",
+	"searchResults": "खोज परिणाम",
+	"backToSearch": "खोज पर वापस जाएं",
+	"noResultsFound": "कोई परिणाम नहीं मिला",
+	"resultsFound": "परिणाम मिले",
+	"enterSearchTerm": "कृपया खोज शब्द दर्ज करें",
+	"live": "लाइव",
+	"noTitle": "कोई शीर्षक नहीं"
 }

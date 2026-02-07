@@ -161,5 +161,15 @@
 	"learnMore": "了解詳情",
 	"updateError": "更新過程中發生錯誤",
 	"unableToAccessDir": "程式無法存取該資料夾",
-	"downloadingUpdate": "正在下載更新"
+	"downloadingUpdate": "正在下載更新",
+	"searchInfo": "搜尋",
+	"searchPlaceholder": "搜尋影片...",
+	"searchNameToolTip": "依名稱搜尋",
+	"searchResults": "搜尋結果",
+	"backToSearch": "返回搜尋",
+	"noResultsFound": "未找到結果",
+	"resultsFound": "個結果",
+	"enterSearchTerm": "請輸入搜尋詞",
+	"live": "直播",
+	"noTitle": "無標題"
 }

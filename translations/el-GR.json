@@ -161,5 +161,15 @@
 	"learnMore": "Μάθε περισσότερα",
 	"updateError": "Παρουσιάστηκε σφάλμα κατά τη διαδικασία ενημέρωσης",
 	"unableToAccessDir": "Το πρόγραμμα δεν μπορεί να έχει πρόσβαση σε αυτόν τον φάκελο",
-	"downloadingUpdate": "Λήψη ενημέρωσης"
+	"downloadingUpdate": "Λήψη ενημέρωσης",
+	"searchInfo": "Αναζήτηση",
+	"searchPlaceholder": "Αναζήτηση βίντεο...",
+	"searchNameToolTip": "Αναζήτηση με όνομα",
+	"searchResults": "Αποτελέσματα Αναζήτησης",
+	"backToSearch": "Επιστροφή στην αναζήτηση",
+	"noResultsFound": "Δεν βρέθηκαν αποτελέσματα",
+	"resultsFound": "αποτελέσματα βρέθηκαν",
+	"enterSearchTerm": "Παρακαλώ εισάγετε όρο αναζήτησης",
+	"live": "Ζωντανά",
+	"noTitle": "Χωρίς τίτλο"
 }

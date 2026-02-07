@@ -161,5 +161,15 @@
 	"learnMore": "Erfahre mehr",
 	"updateError": "Beim Update-Prozess ist ein Fehler aufgetreten",
 	"unableToAccessDir": "Das Programm kann nicht auf diesen Ordner zugreifen",
-	"downloadingUpdate": "Update wird heruntergeladen"
+	"downloadingUpdate": "Update wird heruntergeladen",
+	"searchInfo": "Suchen",
+	"searchPlaceholder": "Videos suchen...",
+	"searchNameToolTip": "Nach Namen suchen",
+	"searchResults": "Suchergebnisse",
+	"backToSearch": "Zurück zur Suche",
+	"noResultsFound": "Keine Ergebnisse gefunden",
+	"resultsFound": "Ergebnisse gefunden",
+	"enterSearchTerm": "Bitte geben Sie einen Suchbegriff ein",
+	"live": "Live",
+	"noTitle": "Kein Titel"
 }

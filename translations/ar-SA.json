@@ -161,5 +161,15 @@
 	"learnMore": "Learn more",
 	"updateError": "An error occurred during the update process",
 	"unableToAccessDir": "The program cannot access that folder",
-	"downloadingUpdate": "Downloading update"
+	"downloadingUpdate": "Downloading update",
+	"searchInfo": "بحث",
+	"searchPlaceholder": "البحث عن مقاطع الفيديو...",
+	"searchNameToolTip": "البحث بالاسم",
+	"searchResults": "نتائج البحث",
+	"backToSearch": "العودة إلى البحث",
+	"noResultsFound": "لم يتم العثور على نتائج",
+	"resultsFound": "نتائج تم العثور عليها",
+	"enterSearchTerm": "الرجاء إدخال مصطلح بحث",
+	"live": "مباشر",
+	"noTitle": "لا يوجد عنوان"
 }

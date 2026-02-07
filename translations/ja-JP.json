@@ -161,5 +161,15 @@
 	"learnMore": "詳細",
 	"updateError": "更新処理中にエラー発生.",
 	"unableToAccessDir": "プログラムはそのフォルダにアクセスできません",
-	"downloadingUpdate": "更新プログラムをダウンロード中"
+	"downloadingUpdate": "更新プログラムをダウンロード中",
+	"searchInfo": "検索",
+	"searchPlaceholder": "動画を検索...",
+	"searchNameToolTip": "名前で検索",
+	"searchResults": "検索結果",
+	"backToSearch": "検索に戻る",
+	"noResultsFound": "結果が見つかりませんでした",
+	"resultsFound": "件見つかりました",
+	"enterSearchTerm": "検索語を入力してください",
+	"live": "ライブ",
+	"noTitle": "タイトルなし"
 }

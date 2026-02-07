@@ -161,5 +161,15 @@
 	"learnMore": "Подробнее",
 	"updateError": "Во время обновления произошла ошибка",
 	"unableToAccessDir": "Нет доступа к папке",
-	"downloadingUpdate": "Загрузка обновления"
+	"downloadingUpdate": "Загрузка обновления",
+	"searchInfo": "Поиск",
+	"searchPlaceholder": "Поиск видео...",
+	"searchNameToolTip": "Поиск по имени",
+	"searchResults": "Результаты поиска",
+	"backToSearch": "Вернуться к поиску",
+	"noResultsFound": "Результатов не найдено",
+	"resultsFound": "результатов найдено",
+	"enterSearchTerm": "Пожалуйста, введите поисковый запрос",
+	"live": "Прямой эфир",
+	"noTitle": "Без названия"
 }

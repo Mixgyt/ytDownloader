@@ -161,5 +161,15 @@
 	"learnMore": "En savoir plus",
 	"updateError": "Une erreur s'est produite lors du processus de mise à jour",
 	"unableToAccessDir": "Le programme ne peut pas accéder à ce dossier",
-	"downloadingUpdate": "Chargement des données"
+	"downloadingUpdate": "Chargement des données",
+	"searchInfo": "Rechercher",
+	"searchPlaceholder": "Rechercher des vidéos...",
+	"searchNameToolTip": "Rechercher par nom",
+	"searchResults": "Résultats de la recherche",
+	"backToSearch": "Retour à la recherche",
+	"noResultsFound": "Aucun résultat trouvé",
+	"resultsFound": "résultats trouvés",
+	"enterSearchTerm": "Veuillez entrer un terme de recherche",
+	"live": "En direct",
+	"noTitle": "Sans titre"
 }
