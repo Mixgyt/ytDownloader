@@ -77,15 +77,15 @@
 
 
     <button id="pasteUrl">
-        <span id="pasteText" title="Download for link url" data-translate="pasteText">Click to paste video link from clipboard</span>
+        <span id="pasteText" data-translate="pasteText">Click to paste video link from clipboard</span>
         <span class="paste-keys">
             <span class="key" id="pasteCtrlKey">Ctrl</span><span class="key">V</span>
         </span>
     </button>
 
-    <div id="inputSearchContainer" title="Search for name videos to download" data-translate-title="searchNameToolTip">
-        <input type="text" id="searchName" placeholder="Enter video name" data-translate-placeholder="searchPlaceholder">
-        <button id="searchBtn" data-translate="searchInfo">Fetch Videos</button>
+    <div id="inputSearchContainer" title="Search by name" data-translate-title="searchNameToolTip">
+        <input type="text" id="searchName" placeholder="Search videos..." data-translate-placeholder="searchPlaceholder">
+        <button id="searchBtn" data-translate="searchInfo">Search</button>
     </div>
 
 
@@ -237,6 +237,9 @@
         </div>
         <!-- Extraction options end -->
     </div>
+
+    <!-- Search results container -->
+    <div id="searchResults" style="display: none;"></div>
 
     <!-- Downloads list -->
     <div id="list"></div>

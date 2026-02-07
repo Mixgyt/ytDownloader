@@ -22,6 +22,7 @@ const CONSTANTS = {
 		SEARCH_NAME_INPUT: "searchName",
 		SEARCH_BTN: "searchBtn",
 		INPUT_SEARCH_CONTAINER: "inputSearchContainer",
+		SEARCH_RESULTS_CONTAINER: "searchResults",
 		// Hidden Info Panel
 		HIDDEN_PANEL: "hidden",
 		CLOSE_HIDDEN_BTN: "closeHidden",
@@ -911,90 +912,196 @@ class YtDownloaderApp {
 			return;
 		}
 
-		// Hide the search container
+		// Hide the search container and download list
 		$(CONSTANTS.DOM_IDS.INPUT_SEARCH_CONTAINER).style.display = "none";
+		$(CONSTANTS.DOM_IDS.DOWNLOAD_LIST).style.display = "none";
 		
-		// Clear previous results
-		const listContainer = $(CONSTANTS.DOM_IDS.DOWNLOAD_LIST);
-		listContainer.innerHTML = "";
+		// Show and clear the search results container
+		const searchResultsContainer = $(CONSTANTS.DOM_IDS.SEARCH_RESULTS_CONTAINER);
+		searchResultsContainer.innerHTML = "";
+		searchResultsContainer.style.display = "block";
 
-		// Create results container with back button
-		const resultsHeader = document.createElement("div");
-		resultsHeader.style.cssText = "margin: 20px auto; text-align: center;";
-		resultsHeader.innerHTML = `
-			<h2 style="display: inline-block; margin-right: 20px;">${i18n.__("searchResults")}</h2>
-			<button id="backToSearch" class="blueBtn">${i18n.__("backToSearch")}</button>
-		`;
-		listContainer.appendChild(resultsHeader);
+		// Create results header with DOM
+		const resultsHeader = this._createSearchResultsHeader();
+		searchResultsContainer.appendChild(resultsHeader);
 
 		// Add click event to back button
 		document.getElementById("backToSearch").addEventListener("click", () => {
-			listContainer.innerHTML = "";
+			// Clear and hide search results
+			searchResultsContainer.innerHTML = "";
+			searchResultsContainer.style.display = "none";
+			// Show search input and download list
 			$(CONSTANTS.DOM_IDS.INPUT_SEARCH_CONTAINER).style.display = "block";
+			$(CONSTANTS.DOM_IDS.DOWNLOAD_LIST).style.display = "block";
 			$(CONSTANTS.DOM_IDS.SEARCH_NAME_INPUT).value = "";
 		});
 
 		// Display each result
 		results.forEach((video) => {
-			const resultItem = document.createElement("div");
-			resultItem.className = "item";
-			resultItem.style.cursor = "pointer";
-			resultItem.style.transition = "transform 0.2s, box-shadow 0.2s";
-			
-			const duration = video.duration 
-				? this._formatDuration(video.duration) 
-				: i18n.__("live");
-			
-			const thumbnail = video.thumbnails && video.thumbnails.length > 0
-				? video.thumbnails[0].url
-				: video.thumbnail || "";
-
-			resultItem.innerHTML = `
-				<div style="display: flex; align-items: center; width: 100%;">
-					${thumbnail ? `<img src="${thumbnail}" class="itemIcon" alt="thumbnail">` : ""}
-					<div style="flex: 1; text-align: left; padding: 0 15px;">
-						<div style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">
-							${video.title || i18n.__("noTitle")}
-						</div>
-						<div style="font-size: 14px; opacity: 0.8;">
-							${video.uploader || ""}
-						</div>
-						<div style="font-size: 12px; opacity: 0.7; margin-top: 3px;">
-							${i18n.__("duration")}: ${duration}
-						</div>
-					</div>
-					<div style="padding: 10px;">
-						<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-							<path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
-						</svg>
-					</div>
-				</div>
-			`;
-
-			resultItem.addEventListener("mouseenter", () => {
-				resultItem.style.transform = "scale(1.02)";
-				resultItem.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
-			});
-
-			resultItem.addEventListener("mouseleave", () => {
-				resultItem.style.transform = "scale(1)";
-				resultItem.style.boxShadow = "none";
-			});
-
-			resultItem.addEventListener("click", () => {
-				// Clear results and go back to normal view
-				listContainer.innerHTML = "";
-				$(CONSTANTS.DOM_IDS.INPUT_SEARCH_CONTAINER).style.display = "block";
-				
-				// Get full video info using the URL
-				const videoUrl = video.url || `https://www.youtube.com/watch?v=${video.id}`;
-				this.getInfo(videoUrl);
-			});
-
-			listContainer.appendChild(resultItem);
+			const resultItem = this._createSearchResultItem(video);
+			searchResultsContainer.appendChild(resultItem);
 		});
 
 		this._showPopup(`${results.length} ${i18n.__("resultsFound")}`, false);
+	}
+
+	/**
+	 * Creates the search results header element using DOM manipulation.
+	 * @returns {HTMLElement} The header element with title and back button.
+	 */
+	_createSearchResultsHeader() {
+		const header = document.createElement("div");
+		header.style.margin = "20px auto";
+		header.style.textAlign = "center";
+
+		const title = document.createElement("h2");
+		title.style.display = "inline-block";
+		title.style.marginRight = "20px";
+		title.textContent = i18n.__("searchResults");
+
+		const backButton = document.createElement("button");
+		backButton.id = "backToSearch";
+		backButton.className = "blueBtn";
+		backButton.textContent = i18n.__("backToSearch");
+
+		header.appendChild(title);
+		header.appendChild(backButton);
+
+		return header;
+	}
+
+	/**
+	 * Validates and sanitizes a URL for safe use in img src.
+	 * @param {string} url The URL to validate.
+	 * @returns {string|null} The validated URL or null if invalid.
+	 */
+	_validateImageUrl(url) {
+		if (!url || typeof url !== "string") return null;
+		
+		try {
+			const parsed = new URL(url);
+			// Only allow http and https protocols
+			if (parsed.protocol === "http:" || parsed.protocol === "https:") {
+				return url;
+			}
+		} catch (e) {
+			// Invalid URL
+		}
+		return null;
+	}
+
+	/**
+	 * Creates a single search result item using DOM manipulation.
+	 * @param {Object} video The video data object.
+	 * @returns {HTMLElement} The result item element.
+	 */
+	_createSearchResultItem(video) {
+		const resultItem = document.createElement("div");
+		resultItem.className = "item";
+		resultItem.style.cursor = "pointer";
+		resultItem.style.transition = "transform 0.2s, box-shadow 0.2s";
+
+		// Create main container
+		const container = document.createElement("div");
+		container.style.display = "flex";
+		container.style.alignItems = "center";
+		container.style.width = "100%";
+
+		// Create thumbnail if available and valid
+		const thumbnail = video.thumbnails && video.thumbnails.length > 0
+			? video.thumbnails[0].url
+			: video.thumbnail || "";
+
+		const validatedThumbnail = this._validateImageUrl(thumbnail);
+		if (validatedThumbnail) {
+			const thumbnailImg = document.createElement("img");
+			thumbnailImg.src = validatedThumbnail;
+			thumbnailImg.className = "itemIcon";
+			thumbnailImg.alt = "thumbnail";
+			container.appendChild(thumbnailImg);
+		}
+
+		// Create content section
+		const contentDiv = document.createElement("div");
+		contentDiv.style.flex = "1";
+		contentDiv.style.textAlign = "left";
+		contentDiv.style.padding = "0 15px";
+
+		// Title
+		const titleDiv = document.createElement("div");
+		titleDiv.style.fontWeight = "bold";
+		titleDiv.style.fontSize = "16px";
+		titleDiv.style.marginBottom = "5px";
+		titleDiv.textContent = video.title || i18n.__("noTitle");
+		contentDiv.appendChild(titleDiv);
+
+		// Uploader
+		if (video.uploader) {
+			const uploaderDiv = document.createElement("div");
+			uploaderDiv.style.fontSize = "14px";
+			uploaderDiv.style.opacity = "0.8";
+			uploaderDiv.textContent = video.uploader;
+			contentDiv.appendChild(uploaderDiv);
+		}
+
+		// Duration
+		const durationDiv = document.createElement("div");
+		durationDiv.style.fontSize = "12px";
+		durationDiv.style.opacity = "0.7";
+		durationDiv.style.marginTop = "3px";
+		const duration = video.duration 
+			? this._formatDuration(video.duration) 
+			: i18n.__("live");
+		durationDiv.textContent = `${i18n.__("duration")}: ${duration}`;
+		contentDiv.appendChild(durationDiv);
+
+		container.appendChild(contentDiv);
+
+		// Create arrow icon
+		const iconDiv = document.createElement("div");
+		iconDiv.style.padding = "10px";
+
+		const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		svg.setAttribute("width", "24");
+		svg.setAttribute("height", "24");
+		svg.setAttribute("viewBox", "0 0 24 24");
+		svg.setAttribute("fill", "currentColor");
+
+		const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+		path.setAttribute("d", "M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z");
+
+		svg.appendChild(path);
+		iconDiv.appendChild(svg);
+		container.appendChild(iconDiv);
+
+		resultItem.appendChild(container);
+
+		// Add hover effects
+		resultItem.addEventListener("mouseenter", () => {
+			resultItem.style.transform = "scale(1.02)";
+			resultItem.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+		});
+
+		resultItem.addEventListener("mouseleave", () => {
+			resultItem.style.transform = "scale(1)";
+			resultItem.style.boxShadow = "none";
+		});
+
+		// Add click handler
+		resultItem.addEventListener("click", () => {
+			// Hide and clear search results
+			const searchResultsContainer = $(CONSTANTS.DOM_IDS.SEARCH_RESULTS_CONTAINER);
+			searchResultsContainer.innerHTML = "";
+			searchResultsContainer.style.display = "none";
+			// Show search input and download list
+			$(CONSTANTS.DOM_IDS.INPUT_SEARCH_CONTAINER).style.display = "block";
+			$(CONSTANTS.DOM_IDS.DOWNLOAD_LIST).style.display = "block";
+			
+			const videoUrl = video.url || `https://www.youtube.com/watch?v=${video.id}`;
+			this.getInfo(videoUrl);
+		});
+
+		return resultItem;
 	}
 
 	/**
