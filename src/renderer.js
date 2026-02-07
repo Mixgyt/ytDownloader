@@ -18,6 +18,10 @@ const CONSTANTS = {
 		SELECT_LOCATION_BTN: "selectLocation",
 		DOWNLOAD_LIST: "list",
 		CLEAR_BTN: "clearBtn",
+		// Search
+		SEARCH_NAME_INPUT: "searchName",
+		SEARCH_BTN: "searchBtn",
+		INPUT_SEARCH_CONTAINER: "inputSearchContainer",
 		// Hidden Info Panel
 		HIDDEN_PANEL: "hidden",
 		CLOSE_HIDDEN_BTN: "closeHidden",
@@ -606,6 +610,19 @@ class YtDownloaderApp {
 		$(CONSTANTS.DOM_IDS.PASTE_URL_BTN).addEventListener("click", () =>
 			this.pasteAndGetInfo()
 		);
+		
+		// Search button
+		$(CONSTANTS.DOM_IDS.SEARCH_BTN).addEventListener("click", () => 
+			this.searchVideos()
+		);
+		
+		// Search on Enter key
+		$(CONSTANTS.DOM_IDS.SEARCH_NAME_INPUT).addEventListener("keydown", (event) => {
+			if (event.key === "Enter") {
+				this.searchVideos();
+			}
+		});
+		
 		document.addEventListener("keydown", (event) => {
 			if (
 				((event.ctrlKey && event.key === "v") ||
@@ -787,6 +804,215 @@ class YtDownloaderApp {
 		} finally {
 			$(CONSTANTS.DOM_IDS.LOADING_WRAPPER).style.display = "none";
 		}
+	}
+
+	/**
+	 * Initiates a video search based on user input.
+	 */
+	async searchVideos() {
+		const query = $(CONSTANTS.DOM_IDS.SEARCH_NAME_INPUT).value.trim();
+		
+		if (!query) {
+			this._showPopup(i18n.__("enterSearchTerm"), true);
+			return;
+		}
+
+		this._resetUIForNewLink();
+		$(CONSTANTS.DOM_IDS.LOADING_WRAPPER).style.display = "flex";
+		
+		try {
+			const results = await this._fetchSearchResults(query);
+			this._displaySearchResults(results);
+		} catch (error) {
+			this._showError(error.message, query);
+		} finally {
+			$(CONSTANTS.DOM_IDS.LOADING_WRAPPER).style.display = "none";
+		}
+	}
+
+	/**
+	 * Executes yt-dlp to search for videos.
+	 * @param {string} query The search query.
+	 * @returns {Promise<Array>} A promise that resolves with an array of search results.
+	 */
+	_fetchSearchResults(query) {
+		return new Promise((resolve, reject) => {
+			const {proxy, browserForCookies, configPath} = this.state.preferences;
+			const searchQuery = `ytsearch10:${query}`;
+			
+			const args = [
+				"-j",
+				"--flat-playlist",
+				"--no-warnings",
+				proxy ? "--proxy" : "",
+				proxy,
+				browserForCookies ? "--cookies-from-browser" : "",
+				browserForCookies,
+				this.state.jsRuntimePath
+					? `--no-js-runtimes --js-runtime ${this.state.jsRuntimePath}`
+					: "",
+				configPath ? "--config-location" : "",
+				configPath ? `"${configPath}"` : "",
+				`"${searchQuery}"`,
+			].filter(Boolean);
+
+			const process = this.state.ytDlp.exec(args, {shell: true});
+
+			console.log(
+				"Spawned yt-dlp search with args:",
+				process.ytDlpProcess.spawnargs.join(" ")
+			);
+
+			let stdout = "";
+			let stderr = "";
+
+			process.ytDlpProcess.stdout.on("data", (data) => {
+				stdout += data;
+			});
+			process.ytDlpProcess.stderr.on("data", (data) => (stderr += data));
+
+			process.on("close", () => {
+				if (stdout) {
+					try {
+						// Parse multiple JSON objects separated by newlines
+						const results = stdout
+							.trim()
+							.split("\n")
+							.map((line) => JSON.parse(line));
+						resolve(results);
+					} catch (e) {
+						reject(
+							new Error(
+								"Failed to parse search results: " +
+									(stderr || e.message)
+							)
+						);
+					}
+				} else {
+					reject(
+						new Error(
+							stderr || "yt-dlp search exited with no results."
+						)
+					);
+				}
+			});
+
+			process.on("error", (err) => reject(err));
+		});
+	}
+
+	/**
+	 * Displays search results in the UI.
+	 * @param {Array} results Array of video search results.
+	 */
+	_displaySearchResults(results) {
+		if (!results || results.length === 0) {
+			this._showPopup(i18n.__("noResultsFound"), true);
+			return;
+		}
+
+		// Hide the search container
+		$(CONSTANTS.DOM_IDS.INPUT_SEARCH_CONTAINER).style.display = "none";
+		
+		// Clear previous results
+		const listContainer = $(CONSTANTS.DOM_IDS.DOWNLOAD_LIST);
+		listContainer.innerHTML = "";
+
+		// Create results container with back button
+		const resultsHeader = document.createElement("div");
+		resultsHeader.style.cssText = "margin: 20px auto; text-align: center;";
+		resultsHeader.innerHTML = `
+			<h2 style="display: inline-block; margin-right: 20px;">${i18n.__("searchResults")}</h2>
+			<button id="backToSearch" class="blueBtn">${i18n.__("backToSearch")}</button>
+		`;
+		listContainer.appendChild(resultsHeader);
+
+		// Add click event to back button
+		document.getElementById("backToSearch").addEventListener("click", () => {
+			listContainer.innerHTML = "";
+			$(CONSTANTS.DOM_IDS.INPUT_SEARCH_CONTAINER).style.display = "block";
+			$(CONSTANTS.DOM_IDS.SEARCH_NAME_INPUT).value = "";
+		});
+
+		// Display each result
+		results.forEach((video) => {
+			const resultItem = document.createElement("div");
+			resultItem.className = "item";
+			resultItem.style.cursor = "pointer";
+			resultItem.style.transition = "transform 0.2s, box-shadow 0.2s";
+			
+			const duration = video.duration 
+				? this._formatDuration(video.duration) 
+				: i18n.__("live");
+			
+			const thumbnail = video.thumbnails && video.thumbnails.length > 0
+				? video.thumbnails[0].url
+				: video.thumbnail || "";
+
+			resultItem.innerHTML = `
+				<div style="display: flex; align-items: center; width: 100%;">
+					${thumbnail ? `<img src="${thumbnail}" class="itemIcon" alt="thumbnail">` : ""}
+					<div style="flex: 1; text-align: left; padding: 0 15px;">
+						<div style="font-weight: bold; font-size: 16px; margin-bottom: 5px;">
+							${video.title || i18n.__("noTitle")}
+						</div>
+						<div style="font-size: 14px; opacity: 0.8;">
+							${video.uploader || ""}
+						</div>
+						<div style="font-size: 12px; opacity: 0.7; margin-top: 3px;">
+							${i18n.__("duration")}: ${duration}
+						</div>
+					</div>
+					<div style="padding: 10px;">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+							<path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/>
+						</svg>
+					</div>
+				</div>
+			`;
+
+			resultItem.addEventListener("mouseenter", () => {
+				resultItem.style.transform = "scale(1.02)";
+				resultItem.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+			});
+
+			resultItem.addEventListener("mouseleave", () => {
+				resultItem.style.transform = "scale(1)";
+				resultItem.style.boxShadow = "none";
+			});
+
+			resultItem.addEventListener("click", () => {
+				// Clear results and go back to normal view
+				listContainer.innerHTML = "";
+				$(CONSTANTS.DOM_IDS.INPUT_SEARCH_CONTAINER).style.display = "block";
+				
+				// Get full video info using the URL
+				const videoUrl = video.url || `https://www.youtube.com/watch?v=${video.id}`;
+				this.getInfo(videoUrl);
+			});
+
+			listContainer.appendChild(resultItem);
+		});
+
+		this._showPopup(`${results.length} ${i18n.__("resultsFound")}`, false);
+	}
+
+	/**
+	 * Formats duration in seconds to HH:MM:SS or MM:SS format.
+	 * @param {number} seconds Duration in seconds.
+	 * @returns {string} Formatted duration string.
+	 */
+	_formatDuration(seconds) {
+		if (!seconds || seconds <= 0) return "0:00";
+		
+		const hours = Math.floor(seconds / 3600);
+		const minutes = Math.floor((seconds % 3600) / 60);
+		const secs = Math.floor(seconds % 60);
+		
+		if (hours > 0) {
+			return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+		}
+		return `${minutes}:${secs.toString().padStart(2, '0')}`;
 	}
 
 	/**
